@@ -1,32 +1,20 @@
-HDD Health JSON
+# HDD Health Monitor for n8n & Discord
 
-A lightweight Bash script that collects SMART health information for multiple hard drives and outputs the results in structured JSON format.
-It is designed to work with smartctl and jq, making it easy to integrate with monitoring systems, dashboards, or log collectors.
+A lightweight Bash script designed to check the S.M.A.R.T. health status of your storage drives, compile a clean status report, and format the output so it can easily be processed by n8n to send real-time alerts directly to Discord.
 
-Features
+## Features
 
-Scans predefined drives (/dev/sda through /dev/sde by default).
+- **Automated S.M.A.R.T. Checks**: Pulls raw diagnostic data using `smartctl`.
+- **Dynamic Status Report**: Monitors drive passage/failure states, temperatures, reallocated sector counts, and power-on hours.
+- **Fun Alert Variations**: Generates randomized emojis and status messages for both healthy states and warning states.
+- **n8n Ready**: Formatted text output that fits perfectly into SSH execution nodes or command-line nodes to pass down stream to Webhooks (like Discord/ntfy).
 
-Collects and summarizes SMART data including:
+---
 
-Drive model and serial number
+## Prerequisites
 
-Overall SMART health status (PASSED/FAILED)
+Before setting up the script, ensure your system has `smartmontools` installed:
 
-Current temperature
-
-Key attributes:
-
-Reallocated sectors (ID 5)
-
-Pending sectors (ID 197)
-
-Uncorrectable sectors (ID 198)
-
-CRC errors (ID 199)
-
-Power-on hours
-
-Outputs results as JSON (array of drive objects).
-
-Saves JSON report both to stdout and as hddhealth.json in the same directory as the script.
+### On Debian / Ubuntu:
+```bash
+sudo apt update && sudo apt install smartmontools -y
